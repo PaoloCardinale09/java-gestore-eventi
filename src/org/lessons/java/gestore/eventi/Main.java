@@ -40,10 +40,13 @@ public class Main {
                 nPrenotazioni += prenotazioni;
 
                 try {
-                    evento.prenota(nPrenotazioni);
+
+                    for (int i = 0; i < prenotazioni; i++) {
+                        evento.prenotaOnce();
+                        // Aggiorna il valore di postiDisponibili
+                        postiDisponibili = totalCapacity - nPrenotazioni;
+                    }
                     System.out.println("Hai prenotato " + nPrenotazioni + " posti");
-                    // Aggiorna il valore di postiDisponibili
-                    postiDisponibili = totalCapacity - nPrenotazioni;
                     System.out.println("Posti disponibili " + postiDisponibili);
                 } catch (InvalidCapacity e) {
                     System.out.println("ERRORE: posti disponibili " + postiDisponibili);
@@ -66,10 +69,11 @@ public class Main {
                     nDismiss += dismiss;
 
                     try {
-                        evento.disdici(nDismiss);
-                        System.out.println("Hai disdetto " + dismiss + " posti");
-                        // Aggiorna il valore di postiDisponibili
-                        postiDisponibili += nDismiss;
+                        for (int i = 0; i < dismiss; i++) {
+                            evento.disdiciOnce();
+                            // Aggiorna il valore di postiDisponibili
+                        }
+                        postiDisponibili = postiDisponibili + dismiss;
                         System.out.println("Posti disponibili: " + postiDisponibili);
                     } catch (InvalidCapacity e) {
                         System.out.println("ERRORE: posti disponibili " + postiDisponibili);

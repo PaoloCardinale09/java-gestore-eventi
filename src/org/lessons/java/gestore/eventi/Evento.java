@@ -69,6 +69,20 @@ public class Evento {
         postiPrenotati += n;
     }
 
+    public void prenotaOnce() throws InvalidDateException, InvalidCapacity {
+        if (postiTotale < 0) {
+            throw new InvalidCapacity("ERRORE: Max posti prenotabili: " + postiTotale);
+        }
+        postiPrenotati++;
+    }
+
+    public void disdiciOnce() throws InvalidDateException, InvalidCapacity {
+        if (postiPrenotati < 0) {
+            throw new InvalidCapacity("ERRORE: Non esiste nessun posto prenotato");
+        }
+        postiPrenotati--;
+    }
+
     //2. disdici : riduce di uno i posti prenotati.
     //Se l’evento è già passato o non ci sono prenotazioni deve sollevare un’eccezione.
     public void disdici(int n) throws InvalidDateException, InvalidCapacity {
