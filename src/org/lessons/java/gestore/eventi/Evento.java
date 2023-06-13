@@ -59,26 +59,26 @@ public class Evento {
 
     //1. prenota : aggiunge uno ai posti prenotati.
     //Se l’evento è già passato o non ha posti disponibili deve sollevare un’eccezione.
-    public void prenota() throws InvalidDateException, InvalidCapacity {
+    public void prenota(int n) throws InvalidDateException, InvalidCapacity {
         if (data.isBefore(LocalDate.now())) {
-            throw new InvalidDateException("ERRORE: La data inserita " + data + "non è valida");
+            throw new InvalidDateException("ERRORE: La data inserita " + data + " non è valida");
         }
-        if (postiTotale < 0) {
-            throw new InvalidCapacity("ERRORE: Il numero di posti totali non sono sufficienti");
+        if (postiTotale < n) {
+            throw new InvalidCapacity("ERRORE: Max posti prenotabili: " + postiTotale);
         }
-        postiPrenotati++;
+        postiPrenotati += n;
     }
 
     //2. disdici : riduce di uno i posti prenotati.
     //Se l’evento è già passato o non ci sono prenotazioni deve sollevare un’eccezione.
-    public void disdici() throws InvalidDateException, InvalidCapacity {
+    public void disdici(int n) throws InvalidDateException, InvalidCapacity {
         if (data.isBefore(LocalDate.now())) {
             throw new InvalidDateException("ERRORE: La data inserita " + data + "non è valida");
         }
-        if (postiPrenotati < 1) {
+        if (postiPrenotati < n) {
             throw new InvalidCapacity("ERRORE: Non esiste nessun posto prenotato");
         }
-        postiPrenotati--;
+        postiPrenotati -= n;
     }
 
     @Override
