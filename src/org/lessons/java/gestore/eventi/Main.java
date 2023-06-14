@@ -18,8 +18,21 @@ public class Main {
         System.out.println("INSERISCI NUOVO EVENTO");
         System.out.println("Titolo dell'evento: ");
         String title = scan.nextLine();
-        System.out.println("Data dell'evento: (gg/mm/yyy)");
-        LocalDate date = LocalDate.parse(scan.nextLine(), formatter);
+
+        // controllo se la data è valida, e rimango in loop finché non lo è
+        // e intercetto le eccezioni con i try catch
+        LocalDate date = null;
+        do {
+            System.out.println("Data dell'evento: (yyyy-MM-dd)");
+            String dateString = scan.nextLine();
+            try {
+                date = LocalDate.parse(dateString);
+            } catch (Exception e) {
+                System.out.println("ERRORE: formato della data non valido");
+            }
+        } while (date == null);
+
+        
         System.out.println("Posti totali: ");
         int totalCapacity = Integer.parseInt(scan.nextLine());
 
